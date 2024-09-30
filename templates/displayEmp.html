@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <h1>display Emp data</h1>
+        <table border="3px">
+            <tr>
+                <!-- <th>pk/id</th> -->
+                <!-- <th>deptno</th>
+                <th>dname</th>
+                <th>dloc</th> -->
+                <td>empno</td>
+                <td>ename</td>
+                <th>job</th>
+                <th>sal</th>
+                <th>hireddate</th>
+                <th>mgr</th>
+                <th>comm</th>
+            </tr>
+            {% for eo in emps %}
+                <tr>
+
+                    <!-- <td>{{ do.deptno }}</td>
+                    <td>{{ do.dname }}</td>
+                    <td>{{ do.dloc }}</td> -->
+
+
+
+                    
+                    <td>{{ eo.empno }}</td>
+                    <td>{{ eo.ename }}</td>
+                    <td>{{ eo.job }}</td>
+                    <td>{{ eo.sal }}</td>
+                    <td>{{ eo.hiredate }}</td>
+                    <td>{{ eo.mgr }}</td>
+                    <td>{{ eo.comm }}</td>
+
+
+                </tr>
+            {% endfor %}
+        </table>
+    </center>
+</body>
+</html>

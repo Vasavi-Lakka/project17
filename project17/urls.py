@@ -22,4 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('insert_Dept/', insert_Dept, name='insert_Dept'),
     path('insert_Emp/', insert_Emp, name='insert_Emp'),
+    path('displayDept/', displayDept, name='displayDept'),
+    path('displayEmp/', displayEmp, name='displayEmp'),
+
+
 ]

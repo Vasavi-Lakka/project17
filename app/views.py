@@ -9,7 +9,10 @@ def insert_Dept(request):
     dl=input('enter dept loc: ')
     DO=Dept.objects.get_or_create(deptno=dno, dname=dn, dloc=dl)
     if DO[1]:
-        return HttpResponse('New object is created')
+        depts=Dept.objects.all()
+        d={'depts':depts}
+        return render(request, 'displayDept.html', d)
+        #return HttpResponse('New object is created')
     else:
         return HttpResponse("Already Exits")
 def insert_Emp(request):
@@ -24,12 +27,27 @@ def insert_Emp(request):
     c=int(input('enter comm: '))
     m=input('enter manager: ')
 
-    DO=Dept.objects.get_or_create(deptno=dno, dname=dn, dloc=dl)[0]
-    EO=Emp.objects.get_or_create(deptno=DO, empno=eno, ename=en, job=ej, sal=es, hiredate=hd,comm=c, mgr=m)
-    if EO[1]:
-        return HttpResponse('New object is created')
+    QLDO=Dept.objects.filter(deptno=dno, dname=dn, dloc=dl)
+
+    #DO=Dept.objects.get_or_create(deptno=dno, dname=dn, dloc=dl)[0]
+    #EO=Emp.objects.get_or_create(deptno=DO, empno=eno, ename=en, job=ej, sal=es, hiredate=hd,comm=c, mgr=m)
+    if QLDO:
+        DO=QLDO[0]
+        EO=Emp.objects.get_or_create(deptno=DO, empno=eno, ename=en, job=ej, sal=es, hiredate=hd,comm=c, mgr=m)
+        emps=Emp.objects.all()
+        d={'emps', emps}
+        return render(request, 'displayEmp.html', d)
+        #return HttpResponse('New object is created')
     else:
         return HttpResponse('Already exits')
 
 
 
+def displayDept(request):
+    depts=Dept.objects.all()
+    d={'depts':depts}
+    return render(request, 'displayDept.html', d)
+def displayEmp(request):
+    emps=Emp.objects.all()
+    d={'emps':emps}
+    return render(request, 'displayEmp.html', d)
