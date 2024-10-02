@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from app.models import*
+from django.db.models.functions import Length
 # Create your views here.
  
 def insert_Dept(request):
@@ -44,7 +45,11 @@ def insert_Emp(request):
 
 
 def displayDept(request):
-    depts=Dept.objects.all()
+    depts=Dept.objects.all().order_by(Length('dname'))
+    #depts=Dept.objects.all()
+    depts=Dept.objects.all().order_by('deptno')
+    depts=Dept.objects.all().order_by('dname')
+    depts=Dept.objects.all().order_by(Length('dloc'))
     d={'depts':depts}
     return render(request, 'displayDept.html', d)
 def displayEmp(request):
