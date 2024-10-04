@@ -69,7 +69,10 @@ def displayEmp(request):
  
  
  
- 
+def empdept(request):
+    emps=Emp.objects.select_related('deptno').all()
+    d={'emps':emps}
+    return render(request, 'empdept.html', d)
  
  
  

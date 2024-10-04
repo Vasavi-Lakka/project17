@@ -24,6 +24,6 @@ urlpatterns = [
     path('insert_Emp/', insert_Emp, name='insert_Emp'),
     path('displayDept/', displayDept, name='displayDept'),
     path('displayEmp/', displayEmp, name='displayEmp'),
-
+    path('empdept/', empdept, name='empdept'),
 
 ]
