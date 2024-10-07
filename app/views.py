@@ -89,16 +89,6 @@ def empdept(request):
     return render(request, 'empdept.html', d)
 
 
-
-
-
-
-
-
-
-
- 
-''' 
 def empmgr(request):
     LEMO=Emp.objects.select_related('mgr').all()
     LEMO=Emp.objects.select_related('mgr').filter(job='NodeJs Developer')
@@ -125,14 +115,10 @@ def empdeptmgr(request):
     LEDMO=Emp.objects.select_related('deptno', 'mgr').filter(deptno__dname='Software')
     LEDMO=Emp.objects.select_related('deptno', 'mgr').filter(emp__comm__isnull=True)
 
-
-
-
-
     d={'LEDMO':LEDMO}
     return render(request, 'empdeptmgr.html',d)
  
- '''
+
  
  
  
