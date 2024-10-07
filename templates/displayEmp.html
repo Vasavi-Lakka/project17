@@ -18,27 +18,33 @@
                 <td>ename</td>
                 <th>job</th>
                 <th>sal</th>
-                <th>hireddate</th>
+                <th>hireddate</th> 
                 <th>mgr</th>
                 <th>comm</th>
+                <th>deptno</th>
+                <th>dname</th>
+                <th>dloc</th>
             </tr>
             {% for eo in emps %}
                 <tr>
 
                     <!-- <td>{{ do.deptno }}</td>
                     <td>{{ do.dname }}</td>
-                    <td>{{ do.dloc }}</td> -->
+                    <td>{{ do.dloc }}</td>  -->
 
 
 
-                    
+                    <!-- <td>{{eo.id}}</td> -->
                     <td>{{ eo.empno }}</td>
                     <td>{{ eo.ename }}</td>
                     <td>{{ eo.job }}</td>
                     <td>{{ eo.sal }}</td>
-                    <td>{{ eo.hiredate }}</td>
+                    <td>{{ eo.hiredate }}</td> 
                     <td>{{ eo.mgr }}</td>
                     <td>{{ eo.comm }}</td>
+                    <td>{{ eo.deptno }}</td>
+                    <td>{{ eo.deptno.dname }}</td>
+                    <td>{{ eo.deptno.dloc }}</td>
 
 
                 </tr>

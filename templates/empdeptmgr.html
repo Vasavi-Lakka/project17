@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <h1>Emp Mgr data</h1>
+        <table border="5px">
+            <tr>
+                <th>empno</th>
+                <th>Ename</th>
+                <th>eJob</th>
+                <th>sal</th>
+                <th>ecomm</th>
+                <th>deptno</th>
+                <th>managername</th>
+                <th>managersal</th>
+                <th>managerjob</th>
+                <th>managercomm</th>
+                <th>deptname</th>
+            </tr>
+            {% for edmo in LEDMO %}
+            <tr>
+                <td>{{edmo.empno}}</td>
+                <td>{{edmo.ename}}</td>
+                <td>{{edmo.job}}</td>
+                <td>{{edmo.sal}}</td>
+                <td>{{edmo.comm}}</td>
+                <td>{{edmo.deptno}}</td>
+
+                <td>{{edmo.mgr.ename}}</td>
+                <td>{{edmo.mgr.sal}}</td>
+                <td>{{edmo.mgr.job}}</td>
+                <td>{{edmo.mgr.comm}}</td>
+                <td>{{edmo.deptno.dname}}</td>
+
+
+
+
+            </tr>
+            {% endfor %}
+        </table>
+    </center>
+</body>
+</html>

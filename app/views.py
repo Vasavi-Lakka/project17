@@ -30,19 +30,25 @@ def insert_Emp(request):
     c=int(input('enter comm: '))
     m=input('enter manager: ')
 
-    QLDO=Dept.objects.filter(deptno=dno, dname=dn, dloc=dl)
-
+    #QLDO=Dept.objects.filter(deptno=dno, dname=dn, dloc=dl)
+    MGO=Emp.objects.filter(empno=m)
     #DO=Dept.objects.get_or_create(deptno=dno, dname=dn, dloc=dl)[0]
     #EO=Emp.objects.get_or_create(deptno=DO, empno=eno, ename=en, job=ej, sal=es, hiredate=hd,comm=c, mgr=m)
-    if QLDO:
-        DO=QLDO[0]
-        EO=Emp.objects.get_or_create(deptno=DO, empno=eno, ename=en, job=ej, sal=es, hiredate=hd,comm=c, mgr=m)
-        emps=Emp.objects.all()
-        d={'emps', emps}
-        return render(request, 'displayEmp.html', d)
-        #return HttpResponse('New object is created')
+    if MGO:
+        MGOL=MGO[0]
+        QLDO=Dept.objects.filter(deptno=dno, dname=dn, dloc=dl)
+        if QLDO:
+            DO=QLDO[0]
+            EO=Emp.objects.get_or_create(deptno=DO, empno=eno, ename=en, job=ej, sal=es, hiredate=hd,comm=c, mgr=MGOL)
+            return render(request, 'displayEmp.html')
+        else:
+            return HttpResponse('Already exits')
     else:
-        return HttpResponse('Already exits')
+        return HttpResponse('Data is not avalable')
+
+
+
+  
 
 
 
@@ -57,31 +63,76 @@ def displayDept(request):
     depts=Dept.objects.filter(dname__contains='a')
     d={'depts':depts}
     return render(request, 'displayDept.html', d)
+
+
+
 def displayEmp(request):
     emps=Emp.objects.all()
     emps=Emp.objects.filter(ename__startswith='V')
     emps=Emp.objects.filter(job__endswith='r')
     emps=Emp.objects.filter(job__contains='j')
+    emps=Emp.objects.all()
+    
     
     
     d={'emps':emps}
     return render(request, 'displayEmp.html', d)
  
- 
+#EMP and Dept no  
  
 def empdept(request):
     emps=Emp.objects.select_related('deptno').all()
+    emps=Emp.objects.select_related('deptno').filter(job='NodeJs Developer')
+    emps=Emp.objects.select_related('deptno').filter(deptno__dname='Software')
+    #emps=Emp.objects.select_related('deptno').all()
     d={'emps':emps}
     return render(request, 'empdept.html', d)
+
+
+
+
+
+
+
+
+
+
+ 
+''' 
+def empmgr(request):
+    LEMO=Emp.objects.select_related('mgr').all()
+    LEMO=Emp.objects.select_related('mgr').filter(job='NodeJs Developer')
+    LEMO=Emp.objects.select_related('mgr').filter(deptno__dname='Software')
+    LEMO=Emp.objects.select_related('mgr').filter(comm__isnull=True)
+    LEMO=Emp.objects.select_related('mgr').all()
+    LEMO=Emp.objects.select_related('mgr').filter(deptno=30)
+    LEMO=Emp.objects.select_related('mgr').filter(sal__gt=200000)
+    LEMO=Emp.objects.select_related('mgr').filter(mgr__isnull=False)
+    LEMO=Emp.objects.select_related('mgr').filter(mgr__isnull=True)
+
+    d={'LEMO': LEMO}
+    return render(request, 'empmgr.html', d) 
  
  
  
+def empdeptmgr(request):
+    LEDMO=Emp.objects.select_related('deptno', 'mgr').all()
+    LEDMO=Emp.objects.select_related('deptno', 'mgr').filter(mgr__isnull=True)
+    LEDMO=Emp.objects.select_related('deptno', 'mgr').filter(mgr__isnull=False)
+    LEDMO=Emp.objects.select_related('deptno', 'mgr').filter(comm__isnull=True)
+    LEDMO=Emp.objects.select_related('deptno', 'mgr').filter(mgr__comm__isnull=False)
+    LEDMO=Emp.objects.select_related('deptno', 'mgr').filter(job='NodeJs Developer')
+    LEDMO=Emp.objects.select_related('deptno', 'mgr').filter(deptno__dname='Software')
+    LEDMO=Emp.objects.select_related('deptno', 'mgr').filter(emp__comm__isnull=True)
+
+
+
+
+
+    d={'LEDMO':LEDMO}
+    return render(request, 'empdeptmgr.html',d)
  
- 
- 
- 
- 
- 
+ '''
  
  
  
@@ -148,3 +199,7 @@ def displayEmp(request):
     emps=Emp.objects.all().order_by(Length('dloc'))
     d={'emps':emps}
     return render(request, 'displayEmp.html', d)'''
+
+
+
+
