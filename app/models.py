@@ -6,7 +6,7 @@ class Dept(models.Model):
     dname=models.CharField(max_length=100)
     dloc=models.CharField(max_length=100)
     def __str__(self):
-        return str(self.deptno)
+        return self.dname
 
 
 

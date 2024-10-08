@@ -119,8 +119,19 @@ def empdeptmgr(request):
     return render(request, 'empdeptmgr.html',d)
  
 
- 
- 
+#prefetch_related
+
+def deptemp(request):
+    LDEO=Dept.objects.prefetch_related('emp_set').all()
+    LDEO=Dept.objects.prefetch_related('emp_set').filter(dname='Accounting')
+    LDEO=Dept.objects.prefetch_related('emp_set').order_by('dname')
+    LDEO=Dept.objects.prefetch_related('emp_set').filter(dloc='Bangalore')
+    LDEO=Dept.objects.prefetch_related('emp_set').exclude(deptno=30)
+
+    
+    d={'LDEO': LDEO}
+    return render(request, 'deptemp.html', d) 
+
  
  
  

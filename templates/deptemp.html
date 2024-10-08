@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <h1>Prefetch_related</h1>
+        {% for DO in LDEO %}
+            <h1>dept name:{{DO.dname}}</h1>
+           <h1>dept no:{{DO.deptno}}</h1>
+           <h1>dept loc:{{DO.dloc}}</h1>
+            {% for EO in DO.emp_set.all %}
+                <h3>emp name:{{EO.ename}}</h3>
+                <h3>emp no:{{EO.empno}}</h3>
+                <h3>JOb:{{EO.job}}</h3>
+            {% endfor %}
+        {% endfor %}
+        
+    </center>
+</body>
+</html>
