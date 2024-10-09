@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from app.models import*
 from django.db.models.functions import Length
+from django.db.models import Avg, Sum, Min, Max, Count
 # Create your views here.
  
  
@@ -77,9 +78,14 @@ def displayEmp(request):
     
     d={'emps':emps}
     return render(request, 'displayEmp.html', d)
- 
-#EMP and Dept no  
- 
+
+
+
+
+
+
+#EMP and Dept no  select_related
+
 def empdept(request):
     emps=Emp.objects.select_related('deptno').all()
     emps=Emp.objects.select_related('deptno').filter(job='NodeJs Developer')
@@ -114,10 +120,46 @@ def empdeptmgr(request):
     LEDMO=Emp.objects.select_related('deptno', 'mgr').filter(job='NodeJs Developer')
     LEDMO=Emp.objects.select_related('deptno', 'mgr').filter(deptno__dname='Software')
     LEDMO=Emp.objects.select_related('deptno', 'mgr').filter(emp__comm__isnull=True)
+    #aggreate and annotate f/ns
 
+
+    '''getting the avg savl of all the employees'''
+    #print(Emp.objects.all().aggregate(Avg('sal'))) #{'sal__avg': Decimal('850000')}
+
+
+    '''changing the key name'''
+    #print(Emp.objects.all().aggregate(Avg_sal=Avg('sal')))#{'Avg_sal': Decimal('850000')}
+
+    '''displaying the avg salaries of all the depts'''
+    #print(Emp.objects.values('deptno').annotate(Avg('sal')))
+    #print(Emp.objects.values('deptno__dname').annotate(Avg('sal')))
+    #print(Emp.objects.values('deptno__dname').annotate(Sum('sal')))
+    #print(Emp.objects.values('deptno__dloc').annotate(Avg('sal')))
+    #print(Emp.objects.values('ename').annotate(Avg('sal')))
+    #print(Emp.objects.values('empno').annotate(Avg('sal')))
+    #print(Emp.objects.values('job').annotate(Avg('sal')))
+    #print(Emp.objects.values('ename').annotate(min_sal=Min('sal')))
+    #print(Emp.objects.filter('').aggregate(Count('sal')))
+
+
+    '''displaying the particular depatment avg salary'''
+    #print(Emp.objects.filter(deptno=30).aggregate(Avg('sal')))
+    #print(Emp.objects.filter(deptno__dname='Accounting').aggregate(Avg('sal')))
+    #print(Emp.objects.filter(ename='Sudha').aggregate(Max('sal')))
+    #print(Emp.objects.filter(ename='vasavi').aggregate(Count('sal')))
+    print(Emp.objects.filter(comm=5000).aggregate(Count('sal')))
+
+
+    '''displaying the enames and dnames of all the employees whose sal is greater than avg sal'''
+    #DOAVS=Emp.objects.all().aggregate(sal_avg=Avg('sal'))
+    #LEDMO=Emp.objects.select_related('deptno').filter(sal__gt=DOAVS['sal_avg'])
+    #print(LEDMO)
+
+    
     d={'LEDMO':LEDMO}
     return render(request, 'empdeptmgr.html',d)
- 
+
+
 
 #prefetch_related
 
@@ -127,15 +169,46 @@ def deptemp(request):
     LDEO=Dept.objects.prefetch_related('emp_set').order_by('dname')
     LDEO=Dept.objects.prefetch_related('emp_set').filter(dloc='Bangalore')
     LDEO=Dept.objects.prefetch_related('emp_set').exclude(deptno=30)
-
+    
     
     d={'LDEO': LDEO}
     return render(request, 'deptemp.html', d) 
 
  
+
  
- 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
 #order_by 
 '''
@@ -191,12 +264,9 @@ def displayEmp(request):
     emps=Emp.objects.all()
     emps=Emp.objects.all().order_by(Length('ename'))
     
-    emps=Emps.objects.all().order_by('sal')
-    emps=Emps.objects.all().order_by('job')
+    emps=Emp.objects.all().order_by('sal')
+    emps=Emp.objects.all().order_by('job')
     emps=Emp.objects.all().order_by(Length('dloc'))
     d={'emps':emps}
     return render(request, 'displayEmp.html', d)'''
-
-
-
 
